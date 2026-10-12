@@ -1,0 +1,4 @@
+interface:
+  display_name: "名画沉浸式穿行"
+  short_description: "把静态名画变成连续穿行视频，规划关键帧、运镜提示词和原画收尾"
+  default_prompt: "用 $paint-world-flythrough 将这幅画制作成约20秒的沉浸式穿行视频方案，并提供逐镜头提示词。"
