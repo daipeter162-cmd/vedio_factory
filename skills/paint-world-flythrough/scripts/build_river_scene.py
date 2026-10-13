@@ -1,5 +1,5 @@
 """A real 3D river-night blueprint, not automatic reconstruction of any painting.
-Blender 4.0+: blender -b -t 4 --python build_river_scene.py -- --source painting.png
+Tested with Blender 4.0.2: blender -b -t 4 --python build_river_scene.py -- --source painting.png
   --atlas paint_atlas.png --output scene.blend --preview-dir qa --width 1280
 New sides and geographic layout are authored approximations. Images are packed.
 """

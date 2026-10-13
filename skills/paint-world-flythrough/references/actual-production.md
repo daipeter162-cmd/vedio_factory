@@ -14,6 +14,8 @@
 
 先通过imagegen生成四格无文字油画材质：左上深蓝水面；右上深蓝绿木料；左下赭黄橄榄色地面；右下蓝灰墙面。源画为风格和色板参照。脚本通过UV读取四格，图像打包到blend，不要求额外保留绝对素材路径。
 
+蓝图已在Blender 4.0.2上实际渲染验证。其他版本可能需要调整EEVEE、自动光滑与材质输入名称；不能把4.0.2的测试扩展成所有新版本兼容。CPU软件渲染可设置 `LP_NUM_THREADS=4 OMP_NUM_THREADS=4`，先测一帧速度。`render_scene_frames.py` 支持逐帧续渲和JPEG中间序列；步长2代表原30fps相机路径每隔一帧渲染，组片应按15fps读入并明确披露补帧。
+
 ```bash
 blender -b -t 4 --python scripts/build_river_scene.py -- \
   --source painting.png --atlas paint_atlas.png --output river_world.blend \
