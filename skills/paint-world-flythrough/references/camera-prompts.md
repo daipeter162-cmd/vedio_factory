@@ -80,3 +80,4 @@ S4: Continue pulling back and ease to a stop. Compose the foreground cypress, vi
 | 最后硬变原画 | 先做接近全景的K4，再后期接原图 |
 | 叠化出现双重尖顶 | 匹配地标位置与尺度，缩短叠化或明确切换 |
 | 天空或山脉变化 | 统一空间约束与参考体系，不能只锁色板 |
+
