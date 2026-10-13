@@ -10,16 +10,18 @@ p=argparse.ArgumentParser();p.add_argument('--directory',required=True)
 p.add_argument('--start',type=int,default=1);p.add_argument('--end',type=int,default=540)
 p.add_argument('--step',type=int,default=1);p.add_argument('--width',type=int,default=960)
 p.add_argument('--samples',type=int,default=4)
+p.add_argument('--format',choices=['PNG','JPEG'],default='PNG')
 a=p.parse_args(sys.argv[sys.argv.index('--')+1:]);s=bpy.context.scene
 if a.step<1 or a.start>a.end:raise ValueError('Invalid frame range')
 s.render.resolution_x=a.width;s.render.resolution_y=round(a.width*9/16)
 s.render.resolution_percentage=100;s.eevee.taa_render_samples=a.samples
-s.render.image_settings.file_format='PNG';s.render.image_settings.compression=15
+s.render.image_settings.file_format=a.format;s.render.image_settings.compression=15
+s.render.image_settings.quality=94
 root=Path(a.directory).resolve();root.mkdir(parents=True,exist_ok=True)
 total=len(range(a.start,a.end+1,a.step));t=time.time()
 for idx,frame in enumerate(range(a.start,a.end+1,a.step),1):
- path=root/f'{frame:04d}.png'
- if not path.exists():
+ path=root/f'{frame:04d}.{ "jpg" if a.format=="JPEG" else "png"}'
+ if not path.exists() or path.stat().st_size==0:
   s.frame_set(frame);s.render.filepath=str(path);bpy.ops.render.render(write_still=True)
  if idx%10==0 or idx==total:print(f'PROGRESS {idx}/{total} scene_frame={frame} elapsed={time.time()-t:.1f}',flush=True)
 print('RENDER_COMPLETE',flush=True)

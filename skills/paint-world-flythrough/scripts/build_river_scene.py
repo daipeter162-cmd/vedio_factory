@@ -189,9 +189,9 @@ for m in stroke_mats[4:]:
  bs=m.node_tree.nodes.get('Principled BSDF');drv=bs.inputs['Emission Strength'].driver_add('default_value').driver;drv.expression='0.7+0.10*sin(frame/23)'
 
 # Sky is an immense curved world backdrop, with UV sampling only the source sky.
-skyverts=[];skyfaces=[];N=80
+skyverts=[];skyfaces=[];N=144
 for i in range(N+1):
- ang=math.radians(-100+200*i/N)
+ ang=math.radians(-180+360*i/N)
  for z in [-3,122]:skyverts.append((180*math.sin(ang),180*math.cos(ang),z))
 for i in range(N):skyfaces.append((i*2,i*2+1,i*2+3,i*2+2))
 sky=mesh('L6 painted starry sky cylinder',skyverts,skyfaces,None)
@@ -200,7 +200,9 @@ tex=n.new('ShaderNodeTexImage');tex.image=original;tex.extension='EXTEND'
 em=n.new('ShaderNodeEmission');em.inputs[1].default_value=.78;out=n.new('ShaderNodeOutputMaterial');l.new(tex.outputs['Color'],em.inputs[0]);l.new(em.outputs[0],out.inputs[0]);sky.data.materials.append(skymat)
 for poly in sky.data.polygons:
  for li in poly.loop_indices:
-  vi=sky.data.loops[li].vertex_index;sky.data.uv_layers.active.data[li].uv=(vi//2/N,.670+(vi%2)*.330)
+  vi=sky.data.loops[li].vertex_index;ang=-180+360*(vi//2)/N
+  u=(ang+100)/200 if abs(ang)<=100 else (.5*(-100-ang)/80 if ang<-100 else 1-.5*(ang-100)/80)
+  sky.data.uv_layers.active.data[li].uv=(u,.670+(vi%2)*.330)
 
 # Two people on shore are spatial figures, not a cutout from the painting.
 for j,(x,y) in enumerate([(5.8,-5.3),(6.6,-5.2)]):
