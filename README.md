@@ -6,10 +6,12 @@
 
 [paint-world-flythrough](skills/paint-world-flythrough/) 将绘画转成沉浸式穿行视频。区分参考观察、制作推断与复现设计，不声称恢复作者原提示词。
 
-工作流：参考抽帧 → 能力检查与工具准备 → 三维或AI路线 → 固定地标 → 实体与绘画材质 → 连续相机路径 → 试渲与成片验收 → 原画收尾。
+工作流：参考取证 → 真实三维空间 → 全场景绘画美术 → 内部试制 → 完整连续运镜 → 原图与作者简介 → 技术及目视验收。
+
+完整说明：[名画穿行工作流](workflows/paint-world-flythrough.md)。
 
 - 实体三维优先实现新侧面、绕行和遮挡；2.5D只作用户接受的预演。
-- 含环境检查、隔离安装Blender、河岸场景蓝图、续渲和参考抽帧脚本。
+- 含环境检查、隔离安装Blender、河岸场景蓝图、Three.js/WebGL完整模板、工程初始化、原图简介、缓存绑定和成片校验。
 - 河岸蓝图已在Blender 4.0.2实际渲染。它不是通用单图三维恢复器；其他作品需重建相应几何。
 - 技能安装不提供外部视频模型权限，也不要求使用付费生成服务。
 
@@ -18,8 +20,8 @@
 下载整个 `skills/paint-world-flythrough/` 目录到 Codex 技能目录，通常是 `~/.codex/skills/paint-world-flythrough/`。保持脚本和参考资料相对路径，重新加载技能后调用：
 
 ```text
-用 $paint-world-flythrough 把这幅画制作成20秒的沉浸式穿行视频。
-镜头要绕过主体看到侧面，再切回原画；缺工具自行准备。
+用 $paint-world-flythrough 把这幅画制作成完整30秒的沉浸式穿行视频。
+细化全场景，绕过主体看到侧面，最后8秒展示完整原图与核实后的作者创作简介；缺可逆本地工具自行准备。
 ```
 
 ## 本地三维制作
@@ -42,3 +44,18 @@ python skills/paint-world-flythrough/scripts/prepare_video_evidence.py reference
 ```
 
 输出目录必须为空，源素材保持只读。含《星月夜》原参考的按秒分析、中文和英文运镜提示词。
+
+## 原生1080p完整制作模板
+
+已验证的河岸个案采用Three.js真实三维运镜与手绘表面，Remotion制作结尾，FFmpeg导出完整30秒视频。默认22秒穿行＋8秒原图简介，无插帧或视频放大。
+
+```bash
+python skills/paint-world-flythrough/scripts/init_webgl_project.py project --source painting.png --materials materials
+cd project
+npm ci
+# 将PAINT_CHROME设为本机Chrome可执行文件
+npm run qa
+npm run render
+```
+
+素材命名、作者卡生成和组片顺序见[WebGL生产说明](skills/paint-world-flythrough/references/webgl-production.md)。素材按当前原画生成；该模板不是任意绘画的自动三维恢复器。

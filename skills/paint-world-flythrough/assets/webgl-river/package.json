@@ -1,0 +1,15 @@
+{
+  "name": "paint-world-webgl-river",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "node server.mjs",
+    "qa": "node render.mjs --qa --width 1920",
+    "render": "node render.mjs --width 1920"
+  },
+  "dependencies": {
+    "puppeteer-core": "24.25.0",
+    "three": "0.180.0"
+  }
+}

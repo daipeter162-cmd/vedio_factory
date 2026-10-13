@@ -1,13 +1,13 @@
 interface:
-  display_name: 名画沉浸式穿行
-  short_description: 将绘画重建为可穿行场景，实际渲染三维运镜并保留油画风格
-  default_prompt: 用 $paint-world-flythrough 把这幅画制作成有真实空间穿行的20秒视频。
-  icon_small: assets/icon.svg
-  icon_large: assets/icon.svg
+  display_name: "名画沉浸式穿行"
+  short_description: "将绘画重建为完整油画场景，渲染三维穿行并加入核实后的作者简介"
+  default_prompt: "用 $paint-world-flythrough 制作完整的30秒油画穿行视频，细化全场景，最后展示原图和作者创作简介。"
+  icon_small: "assets/icon.svg"
+  icon_large: "assets/icon.svg"
 policy:
   products:
-  - chatgpt
-  - codex
-  - api
-  - atlas
+  - "chatgpt"
+  - "codex"
+  - "api"
+  - "atlas"
   allow_implicit_invocation: true
